@@ -1,0 +1,526 @@
+
+/* ================================
+   SHOULDER ARC - MAIN DASHBOARD
+================================ */
+
+.shoulder-arc-container {
+  width: 100%;
+  max-width: 1300px;
+  min-height: 100vh;
+  margin: 0 auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  box-sizing: border-box;
+  color: #e2e8f0;
+  background: #0f172a;
+}
+
+.shoulder-arc-container h1 {
+  margin: 0;
+  color: #f8fafc;
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+}
+
+.shoulder-arc-container > p {
+  margin: -12px 0 0;
+  color: #94a3b8;
+}
+
+/* ================================
+   GAME + CAMERA LAYOUT
+================================ */
+
+.shoulder-arc-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+  gap: 18px;
+  align-items: start;
+  width: 100%;
+}
+
+.shoulder-arc-game-panel,
+.shoulder-arc-camera-panel,
+.shoulder-arc-results {
+  min-width: 0;
+  padding: 18px;
+  border: 1px solid #334155;
+  border-radius: 18px;
+  background: #1e293b;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+.shoulder-arc-camera-panel h2,
+.shoulder-arc-results h2 {
+  margin: 0 0 18px;
+  color: #f8fafc;
+  font-size: 20px;
+}
+
+/* PANELS INSIDE SKY ADVENTURE */
+
+.game-overlay-panels {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  width: 100%;
+  padding: 16px;
+  box-sizing: border-box;
+}
+
+/* CAMERA PANEL */
+
+.game-camera-panel,
+.game-history-panel,
+.game-results-panel {
+  background: rgba(15, 23, 55, 0.88);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 16px;
+  padding: 16px;
+  color: white;
+  min-width: 0;
+}
+
+.game-camera-panel {
+  position: absolute;
+  top: 85px;
+  right: 20px;
+  width: 220px;
+  z-index: 5;
+  box-sizing: border-box;
+}
+
+.game-camera-panel .shoulder-arc-camera {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border-radius: 12px;
+  background: #111827;
+}
+
+.game-camera-panel video,
+.game-camera-panel canvas {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.game-camera-panel button,
+.game-history-panel button {
+  margin: 6px 4px 0 0;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+/* HISTORY AND RESULTS */
+
+.game-history-panel,
+.game-results-panel {
+  align-self: start;
+}
+
+.game-results-panel {
+  grid-column: 1 / -1;
+}
+
+/* ================================
+   GAME AREA
+================================ */
+
+.shoulder-arc-game-panel .sky-game {
+  width: 100%;
+  min-height: auto;
+  box-sizing: border-box;
+}
+
+/* ================================
+   GAME START / WELCOME SCREEN
+================================ */
+
+.game-start-exercise {
+  position: relative;
+  z-index: 30;
+  width: 100%;
+  min-height: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 24px;
+  box-sizing: border-box;
+  pointer-events: auto;
+}
+
+.game-start-content {
+  width: 100%;
+  max-width: 480px;
+  padding: 28px;
+  text-align: center;
+  border-radius: 22px;
+  background: rgba(20, 24, 70, 0.94);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 15px 45px rgba(0, 0, 0, 0.3);
+  box-sizing: border-box;
+}
+
+.game-start-content h2 {
+  font-size: 25px;
+  margin: 0 0 14px;
+  color: #fde68a;
+}
+
+.game-start-content p {
+  line-height: 1.6;
+  color: #e0e7ff;
+}
+
+.game-how-to-play {
+  margin: 22px 0;
+  padding: 16px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.09);
+  text-align: left;
+}
+
+.game-how-to-play h4 {
+  margin-top: 0;
+  color: #fde68a;
+}
+
+.game-how-to-play p {
+  margin: 8px 0;
+  font-size: 14px;
+}
+
+.start-exercise-button {
+  padding: 14px 30px;
+  border: none;
+  border-radius: 30px;
+  background: linear-gradient(135deg, #facc15, #f97316);
+  color: #24134f;
+  font-size: 16px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.start-exercise-button:hover {
+  transform: scale(1.05);
+}
+
+/* ================================
+   CAMERA
+================================ */
+
+.shoulder-arc-camera {
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  aspect-ratio: 4 / 3;
+  margin: 0;
+  overflow: hidden;
+  border: 2px solid #475569;
+  border-radius: 14px;
+  background: #020617;
+}
+
+.shoulder-arc-camera video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.shoulder-arc-camera canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* ================================
+   BUTTONS AND CONTROLS
+================================ */
+
+.shoulder-arc-container button {
+  padding: 11px 16px;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  background: #6366f1;
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.shoulder-arc-container button:hover {
+  background: #4f46e5;
+  transform: translateY(-1px);
+}
+
+.shoulder-arc-container button:focus-visible {
+  outline: 3px solid #a5b4fc;
+  outline-offset: 3px;
+}
+
+.shoulder-arc-container button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.shoulder-arc-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.shoulder-arc-controls button {
+  flex: 1 1 120px;
+}
+
+/* ================================
+   EXERCISE RESULTS
+================================ */
+
+.shoulder-arc-results {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.shoulder-arc-visual {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 320px;
+  height: 175px;
+  margin: 0 auto;
+}
+
+.shoulder-arc-svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.shoulder-arc-track {
+  fill: none;
+  stroke: #475569;
+  stroke-width: 8;
+  stroke-linecap: round;
+}
+
+.shoulder-arc-progress {
+  fill: none;
+  stroke: #818cf8;
+  stroke-width: 8;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 0.3s ease;
+}
+
+.shoulder-arc-checkpoint {
+  fill: #64748b;
+  stroke: #1e293b;
+  stroke-width: 2;
+}
+
+.shoulder-arc-checkpoint.reached {
+  fill: #22c55e;
+}
+
+.shoulder-arc-angle {
+  font-size: 24px;
+  font-weight: bold;
+  text-anchor: middle;
+  fill: #f8fafc;
+}
+
+.shoulder-arc-label {
+  font-size: 13px;
+  text-anchor: middle;
+  fill: #cbd5e1;
+}
+
+/* ================================
+   EXERCISE STATISTICS
+================================ */
+
+.shoulder-arc-stats {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  padding: 16px;
+  border: 1px solid #334155;
+  border-radius: 14px;
+  background: #0f172a;
+}
+
+.shoulder-arc-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  padding: 15px;
+  border: 1px solid #334155;
+  border-radius: 12px;
+  background: #1e293b;
+}
+
+.shoulder-arc-stat span {
+  color: #94a3b8;
+  font-size: 13px;
+}
+
+.shoulder-arc-stat strong {
+  color: #a5b4fc;
+  font-size: 21px;
+}
+
+/* ================================
+   FEEDBACK
+================================ */
+
+.shoulder-arc-feedback {
+  padding: 15px;
+  border: 1px solid #4338ca;
+  border-radius: 12px;
+  background: #312e81;
+  color: #e0e7ff;
+  font-weight: 600;
+}
+
+.target-completed {
+  padding: 15px;
+  border-radius: 10px;
+  background: #14532d;
+  color: #bbf7d0;
+  font-weight: 600;
+  text-align: center;
+}
+
+/* ================================
+   REPETITION HISTORY
+================================ */
+
+.history-section {
+  width: 100%;
+  margin-top: 10px;
+}
+
+.history-toggle {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-align: left;
+}
+
+.history-content {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.repetition-history-item {
+  padding: 14px;
+  border: 1px solid #334155;
+  border-radius: 12px;
+  background: #0f172a;
+}
+
+.repetition-history-item p {
+  margin: 5px 0;
+  color: #cbd5e1;
+  font-size: 14px;
+}
+
+/* ================================
+   RESPONSIVE DESIGN
+================================ */
+
+@media (max-width: 900px) {
+  .shoulder-arc-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .game-overlay-panels {
+    grid-template-columns: 1fr;
+    padding: 10px;
+  }
+
+  .game-camera-panel {
+    position: relative;
+    top: auto;
+    right: auto;
+    width: 100%;
+  }
+
+  .game-results-panel {
+    grid-column: auto;
+  }
+}
+
+@media (max-width: 600px) {
+  .shoulder-arc-container {
+    padding: 12px;
+    gap: 14px;
+  }
+
+  .shoulder-arc-container h1 {
+    font-size: 23px;
+  }
+
+  .shoulder-arc-game-panel,
+  .shoulder-arc-camera-panel,
+  .shoulder-arc-results {
+    padding: 12px;
+  }
+
+  .shoulder-arc-stats {
+    grid-template-columns: 1fr 1fr;
+    padding: 10px;
+  }
+
+  .shoulder-arc-stat {
+    padding: 11px;
+  }
+
+  .shoulder-arc-stat strong {
+    font-size: 18px;
+  }
+
+  .shoulder-arc-controls button {
+    flex: 1 1 100%;
+  }
+
+  .shoulder-arc-visual {
+    max-width: 260px;
+    height: 150px;
+  }
+
+  .game-start-content {
+    padding: 20px;
+  }
+
+  .game-start-content h2 {
+    font-size: 21px;
+  }
+}
+
+@media (max-width: 380px) {
+  .shoulder-arc-stats {
+    grid-template-columns: 1fr;
+  }
+}
