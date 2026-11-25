@@ -1,35 +1,53 @@
-# 🦾 Shoulder Arc – Interactive Shoulder Rehabilitation System
+=# 🦾 Shoulder Arc – Interactive Shoulder Rehabilitation System
 
 ## 📌 Project Overview
 
 Shoulder Arc is a camera-based shoulder rehabilitation application designed to make shoulder exercises more interactive, engaging, and accessible.
 
-The application uses real-time body tracking to monitor shoulder movements, calculate joint angles, and track exercise repetitions.
+The application uses real-time body tracking to monitor shoulder movements, calculate shoulder angles, and track exercise repetitions.
 
-It also introduces gamification through an interactive Sky Adventure game, allowing users to perform exercises while enjoying a virtual gaming experience.
+It combines rehabilitation exercises with a cartoon-style **Magical Adventure** game, where users control a magical hero through their arm movements, complete exercise stages, and collect magical stars.
 
 ## ✨ Key Features
 
-- **Real-Time Body Tracking:** Tracks body movements using camera-based tracking.
-- **Shoulder Angle Calculation:** Calculates shoulder movement angles.
-- **Exercise Repetition Tracking:** Automatically counts exercise repetitions.
-- **Hold Duration Tracking:** Monitors how long users maintain a target position.
-- **Exercise Progress:** Displays exercise progress and performance information.
-- **Character Selection:** Allows users to select a game character.
-- **Sky Adventure Game:** Integrates rehabilitation exercises with an interactive gaming environment.
-- **Diamond Collection:** Collects diamonds during gameplay.
-- **Game Controls:** Includes pause and reset functionality.
-- **Interactive Feedback:** Displays achievement messages and game instructions.
+- **Real-Time Body Tracking:** Tracks body movements using camera-based pose detection.
+- **Shoulder Angle Calculation:** Calculates shoulder movement angles using body landmarks.
+- **Exercise Repetition Tracking:** Automatically tracks completed repetitions.
+- **Hold Duration Tracking:** Monitors how long users maintain the required shoulder positions.
+- **90° Cloud Gate:** Guides users through the first shoulder movement stage.
+- **120° Star Canopy:** Guides users through the second shoulder movement stage.
+- **Magical Adventure Game:** Connects shoulder movements to an interactive cartoon fantasy environment.
+- **Character Selection:** Allows users to choose their preferred magical hero.
+- **Shoulder Selection:** Supports left and right shoulder exercise selection.
+- **Magical Star Collection:** Rewards users with a star after completing a full repetition.
+- **Interactive Feedback:** Displays exercise instructions, progress, and achievement messages.
+- **Pause and Reset Controls:** Allows users to manage their exercise session.
+- **Performance Optimization:** Uses optimized canvas rendering and reduced unnecessary React updates for smoother gameplay.
+
+## 🎮 How the Game Works
+
+1. Select a magical character and the shoulder you want to exercise.
+2. Allow camera access and start the adventure.
+3. Raise your selected arm to guide the hero upwards.
+4. Reach the 90° Cloud Gate and hold the position for 3 seconds.
+5. Continue raising your arm to the 120° Star Canopy and hold for 3 seconds.
+6. Lower your arm below 90° to complete the repetition.
+7. Collect a magical star and continue your adventure!
+
+The game uses the existing shoulder tracking and repetition logic to determine when a repetition is completed.
 
 ## 🛠️ Technologies Used
 
 - React
 - TypeScript
 - JavaScript
-- CSS
-- HTML
-- Camera-based motion tracking
+- HTML5
+- CSS3
 - Vite
+- MediaPipe Pose Landmarker
+- Canvas API
+- Browser Camera API
+- React Hooks
 
 ## 📂 Project Structure
 
@@ -37,22 +55,37 @@ It also introduces gamification through an interactive Sky Adventure game, allow
 Shoulder-Arc/
 │
 ├── public/
+│
 ├── src/
 │   ├── components/
+│   │   ├── magicalWorld/
+│   │   │   ├── types.ts
+│   │   │   ├── worldRenderer.ts
+│   │   │   ├── heroRenderer.ts
+│   │   │   └── collectiblesRenderer.ts
+│   │   │
 │   │   ├── ShoulderArcModule.tsx
-│   │   ├── SkyAdventureGame.tsx
+│   │   ├── MagicalAdventureGame.tsx
+│   │   ├── MagicalWorldCanvas.tsx
 │   │   ├── CharacterSelection.tsx
+│   │   ├── AdventureHud.tsx
+│   │   ├── CameraPip.tsx
 │   │   ├── analytics.ts
 │   │   ├── types.ts
-│   │   └── skyAdventure.css
+│   │   └── magicalAdventure.css
 │   │
 │   ├── hooks/
 │   │   ├── useCamera.ts
 │   │   └── useTracker.ts
 │   │
 │   ├── services/
+│   │   ├── camera/
+│   │   └── tracking/
 │   │
-│   └── ...
+│   ├── App.tsx
+│   ├── App.css
+│   ├── index.css
+│   └── main.tsx
 │
 ├── package.json
 ├── package-lock.json
@@ -60,7 +93,7 @@ Shoulder-Arc/
 └── vite.config.ts
 ```
 
-*Note: Adjust the folder structure to match the final project.*
+*Note: This structure represents the main project files. Adjust it if your final folder structure changes.*
 
 ## 🚀 Installation and Setup
 
@@ -96,37 +129,31 @@ Open the local URL provided by Vite, usually:
 http://localhost:5173
 ```
 
-## 🎮 How to Use
+**Note:** Allow camera permission when starting an exercise. Camera access may require HTTPS when running outside localhost.
 
-1. Open the Shoulder Arc application.
-2. Allow camera access when prompted.
-3. Position yourself in front of the camera.
-4. Select your preferred game character.
-5. Follow the exercise instructions.
-6. Perform shoulder movements while the system tracks your movement.
-7. Complete repetitions and collect diamonds in Sky Adventure.
-8. Use the pause and reset controls when needed.
+## 🌐 Live Demo
+
+[Shoulder Arc – Live Application]
 
 ## 🔮 Future Improvements
 
 - Exercise performance history.
-- User progress dashboard.
+- Therapist dashboard with detailed analytics.
 - Additional rehabilitation exercises.
-- Multiple interactive game environments.
-- Improved movement accuracy.
-- Personalized exercise goals.
+- More interactive game environments.
+- Improved movement tracking and accuracy.
+- Personalized exercise goals and progress monitoring.
 
 ## ⚠️ Important Note
 
-Shoulder Arc is a technology-based rehabilitation support project. It is not a replacement for professional medical advice or supervision. Users should perform exercises according to guidance from a qualified healthcare professional.
+Shoulder Arc is a technology-based rehabilitation support project. It is not a replacement for professional medical advice, diagnosis, or supervision. Users should perform exercises according to guidance from a qualified healthcare professional.
 
 ## 👩‍💻 Author
 
 **Anagha Prabhu**
 
-GitHub: https://github.com/Anaghaprabhu146
-
-LinkedIn: https://linkedin.com/in/anagha-prabhu
+- GitHub: https://github.com/Anaghaprabhu146
+- LinkedIn: https://linkedin.com/in/anagha-prabhu
 
 ---
 

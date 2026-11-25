@@ -1,0 +1,790 @@
+/* =========================================
+   MAGICAL ADVENTURE - FULLSCREEN ARCADE UI
+   ========================================= */
+
+.shoulder-arc-container:has(.magical-adventure) {
+  width: 100%;
+  max-width: 100%;
+  height: 100vh;
+  height: 100dvh;
+  min-height: 100dvh;
+  margin: 0;
+  padding: 0;
+  gap: 0;
+  overflow: hidden;
+  background: #0b132b;
+}
+
+.magical-adventure {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(180deg, #1d2d6b 0%, #3b4cca 48%, #38bdf8 100%);
+  color: #ffffff;
+  user-select: none;
+  font-family: var(--sans, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif);
+}
+
+.magical-adventure:fullscreen {
+  width: 100vw;
+  height: 100vh;
+}
+
+/* =========================================
+   WORLD CANVAS LAYER
+   ========================================= */
+
+.magical-world-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  z-index: 1;
+}
+
+/* =========================================
+   TOP ARCADE HUD
+   ========================================= */
+
+.adventure-hud {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 16px;
+  pointer-events: none;
+}
+
+.adventure-hud-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  pointer-events: auto;
+  flex-wrap: wrap;
+}
+
+.hud-pill {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 14px;
+  border-radius: 16px;
+  background: rgba(15, 23, 55, 0.88);
+  border: 2px solid rgba(255, 255, 255, 0.24);
+  box-shadow: 0 8px 20px rgba(10, 15, 40, 0.32);
+}
+
+.hud-stars-pill {
+  border-color: rgba(250, 204, 21, 0.6);
+}
+
+.hud-star-icon {
+  font-size: 22px;
+  line-height: 1;
+  filter: drop-shadow(0 0 8px rgba(250, 204, 21, 0.8));
+}
+
+.hud-metric {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.15;
+}
+
+.hud-metric-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #cbd5e1;
+}
+
+.hud-metric-value {
+  font-size: 18px;
+  font-weight: 800;
+  color: #ffffff;
+}
+
+.hud-stars-row {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.hud-mini-star {
+  font-size: 14px;
+  line-height: 1;
+  opacity: 0.28;
+  filter: grayscale(1);
+  transition: transform 0.25s ease, opacity 0.25s ease, filter 0.25s ease;
+}
+
+.hud-mini-star.collected {
+  opacity: 1;
+  filter: drop-shadow(0 0 6px rgba(250, 204, 21, 0.85));
+  transform: scale(1.1);
+}
+
+/* Center Instruction & Hold Meter */
+
+.hud-mission-pill {
+  flex: 1 1 280px;
+  max-width: 440px;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 6px;
+  padding: 10px 16px;
+}
+
+.hud-mission-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.hud-mission-text {
+  font-size: 14px;
+  font-weight: 800;
+  color: #fef08a;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.45);
+}
+
+.hud-hold-timer {
+  font-size: 12px;
+  font-weight: 700;
+  color: #bae6fd;
+  white-space: nowrap;
+}
+
+.hud-hold-track {
+  width: 100%;
+  height: 10px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.18);
+  overflow: hidden;
+}
+
+.hud-hold-fill {
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #34d399 0%, #38bdf8 55%, #fde047 100%);
+  box-shadow: 0 0 10px rgba(56, 189, 248, 0.85);
+  transition: width 0.12s linear;
+}
+
+.hud-stage-steps {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 6px;
+}
+
+.hud-stage-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 4px 6px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 700;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(255, 255, 255, 0.08);
+  color: #cbd5e1;
+  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+.hud-stage-chip.is-active {
+  background: rgba(56, 189, 248, 0.22);
+  border-color: rgba(103, 232, 249, 0.8);
+  color: #e0f2fe;
+}
+
+.hud-stage-chip.is-done {
+  background: rgba(34, 197, 94, 0.24);
+  border-color: rgba(74, 222, 128, 0.8);
+  color: #dcfce7;
+}
+
+/* HUD Buttons */
+
+.magical-adventure .hud-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 10px 14px;
+  border-radius: 14px;
+  border: 2px solid rgba(255, 255, 255, 0.24);
+  background: rgba(15, 23, 55, 0.88);
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.16s ease, background 0.16s ease, border-color 0.16s ease;
+}
+
+.magical-adventure .hud-btn:hover {
+  transform: translateY(-1px);
+  background: rgba(30, 41, 88, 0.92);
+  border-color: rgba(255, 255, 255, 0.45);
+}
+
+.magical-adventure .hud-btn-pause {
+  background: rgba(234, 179, 8, 0.9);
+  border-color: #fef08a;
+  color: #1e1b4b;
+}
+
+.magical-adventure .hud-btn-pause:hover {
+  background: #facc15;
+}
+
+.magical-adventure .hud-btn-reset {
+  background: rgba(249, 115, 22, 0.88);
+  border-color: #fdba74;
+}
+
+.magical-adventure .hud-btn-reset:hover {
+  background: #f97316;
+}
+
+/* =========================================
+   CAMERA PIP (BACKGROUND TRACKING)
+   ========================================= */
+
+.camera-pip {
+  position: absolute;
+  right: 16px;
+  bottom: 16px;
+  z-index: 12;
+  width: 184px;
+  padding: 8px;
+  border-radius: 16px;
+  background: rgba(15, 23, 55, 0.9);
+  border: 2px solid rgba(255, 255, 255, 0.24);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.38);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.camera-pip.is-prestart {
+  opacity: 0;
+  pointer-events: none;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  padding: 0;
+  border: none;
+}
+
+.camera-pip.is-collapsed {
+  width: auto;
+  padding: 6px 10px;
+}
+
+.camera-pip-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.camera-pip-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  color: #e2e8f0;
+  text-transform: capitalize;
+}
+
+.camera-status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #94a3b8;
+}
+
+.camera-status-dot.active {
+  background: #22c55e;
+  box-shadow: 0 0 8px #22c55e;
+}
+
+.camera-status-dot.starting {
+  background: #facc15;
+}
+
+.camera-status-dot.error {
+  background: #ef4444;
+}
+
+.magical-adventure .camera-pip-toggle {
+  padding: 3px 8px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  background: rgba(255, 255, 255, 0.12);
+  color: #f8fafc;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.camera-pip-viewport {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #020617;
+}
+
+.camera-pip.is-collapsed .camera-pip-viewport {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.camera-pip-viewport video,
+.camera-pip-viewport canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scaleX(-1);
+}
+
+.camera-pip-viewport canvas {
+  pointer-events: none;
+}
+
+.camera-pip-sides {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+}
+
+.magical-adventure .camera-side-btn {
+  padding: 5px 6px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.1);
+  color: #cbd5e1;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.magical-adventure .camera-side-btn.active {
+  background: #38bdf8;
+  border-color: #bae6fd;
+  color: #082f49;
+}
+
+.magical-adventure .camera-side-btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.camera-pip-error {
+  margin: 0;
+  font-size: 11px;
+  color: #fecaca;
+  line-height: 1.3;
+}
+
+.magical-adventure .camera-retry-btn {
+  padding: 5px 8px;
+  border-radius: 8px;
+  border: none;
+  background: #ef4444;
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/* =========================================
+   START / PAUSE / REWARD OVERLAYS
+   ========================================= */
+
+.adventure-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(11, 19, 43, 0.76);
+}
+
+.adventure-card {
+  width: min(640px, 100%);
+  max-height: calc(100dvh - 28px);
+  overflow-y: auto;
+  padding: 24px 26px;
+  border-radius: 28px;
+  background: linear-gradient(160deg, rgba(28, 39, 92, 0.94), rgba(49, 46, 129, 0.94));
+  border: 3px solid rgba(253, 224, 71, 0.48);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  scrollbar-width: thin;
+}
+
+.welcome-header-row {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.magical-adventure .welcome-fs-btn {
+  padding: 6px 12px;
+  font-size: 12px;
+  border-radius: 999px;
+}
+
+.welcome-section {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.welcome-section-label {
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #bae6fd;
+}
+
+.hero-grid {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.magical-adventure .hero-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 12px 12px 14px;
+  border-radius: 20px;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+  cursor: pointer;
+  transition: transform 0.18s ease, border-color 0.18s ease, background 0.18s ease, box-shadow 0.18s ease;
+}
+
+.magical-adventure .hero-card:hover {
+  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.14);
+  border-color: rgba(255, 255, 255, 0.45);
+}
+
+.magical-adventure .hero-card.is-selected {
+  border-color: #fde047;
+  background: linear-gradient(160deg, rgba(250, 204, 21, 0.2), rgba(56, 189, 248, 0.18));
+  box-shadow: 0 0 0 2px rgba(253, 224, 71, 0.35), 0 12px 24px rgba(0, 0, 0, 0.25);
+}
+
+.hero-selected-tag {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: #fde047;
+  color: #1e1b4b;
+  font-size: 10px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.hero-portrait-svg {
+  width: 78px;
+  height: 78px;
+  display: block;
+}
+
+.hero-card-name {
+  font-size: 15px;
+  font-weight: 800;
+  color: #ffffff;
+}
+
+.hero-card-tagline {
+  font-size: 12px;
+  color: #cbd5e1;
+}
+
+.shoulder-selector {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.magical-adventure .shoulder-choice-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 11px 14px;
+  border-radius: 14px;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.08);
+  color: #e2e8f0;
+  font-size: 14px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: transform 0.16s ease, border-color 0.16s ease, background 0.16s ease, box-shadow 0.16s ease;
+}
+
+.magical-adventure .shoulder-choice-btn:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.42);
+}
+
+.magical-adventure .shoulder-choice-btn.is-selected {
+  background: linear-gradient(135deg, #38bdf8, #22d3ee);
+  border-color: #e0f2fe;
+  color: #082f49;
+  box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.35), 0 8px 20px rgba(8, 47, 73, 0.35);
+}
+
+.shoulder-choice-indicator {
+  font-size: 15px;
+  line-height: 1;
+}
+
+.welcome-start-btn {
+  margin-top: 2px;
+}
+
+.adventure-badge {
+  padding: 5px 14px;
+  border-radius: 999px;
+  background: rgba(250, 204, 21, 0.18);
+  border: 1px solid rgba(250, 204, 21, 0.5);
+  color: #fde047;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.adventure-title {
+  margin: 0;
+  font-size: clamp(28px, 4.5vw, 44px);
+  font-weight: 900;
+  line-height: 1.1;
+  color: #ffffff;
+  text-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+}
+
+.adventure-title span {
+  color: #fde047;
+}
+
+.adventure-subtitle {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.55;
+  color: #e0e7ff;
+  max-width: 440px;
+}
+
+.adventure-steps {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  margin: 4px 0;
+}
+
+.adventure-step {
+  padding: 12px 10px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.adventure-step strong {
+  font-size: 13px;
+  color: #fde047;
+}
+
+.adventure-step span {
+  font-size: 12px;
+  color: #e2e8f0;
+  line-height: 1.35;
+}
+
+.adventure-side-picker {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.adventure-side-picker span {
+  font-size: 13px;
+  font-weight: 700;
+  color: #cbd5e1;
+}
+
+.magical-adventure .adventure-primary-btn {
+  padding: 14px 34px;
+  border-radius: 999px;
+  border: 3px solid #fef08a;
+  background: linear-gradient(135deg, #facc15 0%, #f97316 100%);
+  color: #1e1b4b;
+  font-size: 17px;
+  font-weight: 900;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+  box-shadow: 0 10px 26px rgba(249, 115, 22, 0.4);
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+.magical-adventure .adventure-primary-btn:hover {
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 14px 30px rgba(249, 115, 22, 0.55);
+}
+
+.adventure-reward-toast {
+  position: absolute;
+  top: 88px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 15;
+  padding: 12px 24px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #fef08a, #facc15);
+  color: #1e1b4b;
+  font-size: 18px;
+  font-weight: 900;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.3);
+  animation: magical-toast-pop 0.35s ease;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+@keyframes magical-toast-pop {
+  from {
+    opacity: 0;
+    transform: translate(-50%, 10px) scale(0.85);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0) scale(1);
+  }
+}
+
+/* =========================================
+   RESPONSIVE ADJUSTMENTS (TABLET & MOBILE)
+   ========================================= */
+
+@media (max-width: 900px) {
+  .adventure-hud {
+    flex-wrap: wrap;
+    padding: 10px 12px;
+    gap: 8px;
+  }
+
+  .hud-mission-pill {
+    order: 3;
+    flex: 1 1 100%;
+    max-width: none;
+  }
+
+  .camera-pip {
+    width: 148px;
+    right: 12px;
+    bottom: 12px;
+  }
+}
+
+@media (max-width: 600px) {
+  .hud-stars-row {
+    display: none;
+  }
+
+  .hud-pill {
+    padding: 7px 10px;
+  }
+
+  .hud-metric-value {
+    font-size: 15px;
+  }
+
+  .hud-stage-chip {
+    font-size: 10px;
+    padding: 3px 4px;
+  }
+
+  .magical-adventure .hud-btn {
+    padding: 8px 10px;
+    font-size: 12px;
+  }
+
+  .adventure-steps {
+    grid-template-columns: 1fr;
+  }
+
+  .adventure-card {
+    padding: 18px 16px;
+    gap: 10px;
+  }
+
+  .hero-portrait-svg {
+    width: 62px;
+    height: 62px;
+  }
+
+  .shoulder-selector {
+    grid-template-columns: 1fr;
+  }
+
+  .camera-pip {
+    width: 126px;
+  }
+
+  .adventure-reward-toast {
+    top: 124px;
+    font-size: 15px;
+    padding: 10px 18px;
+  }
+}
